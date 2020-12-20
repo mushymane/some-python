@@ -1,10 +1,10 @@
 import tweepy
 import time
 
-auth = tweepy.OAuthHandler('PDkCXxxBRbB2gEreFUq4vX99c',
-                           'S4TV5hIcvmLHav5BYbjI4RDOHqPiKTR3Wcqp963I9FFS3738Kr')
-auth.set_access_token('895781968758980608-3iaRoQbaV5Scga3fXb2UMR0FcC5HRhP',
-                      'bEkDO64FIYiCI79NWnmkvuA0nR7PsNtmb1erkQqQAxTmB')
+auth = tweepy.OAuthHandler('NZbvRXsvz9NznXGBUvTNEy2Y6',
+                           'lIOSe3dtY1bxprR1m5DoRMaQaOOa2K1FiQRsI4ihaaeXltfJiN')
+auth.set_access_token('895781968758980608-nt53Q3QRQKQ7gPTBkJnv0j9P8AzD6aI',
+                      'zbG0jYPT30P0Fv1LQ4tfnT8I8AQcdPMsxfOY6spscv7xH')
 
 api = tweepy.API(auth)
 user = api.me()
@@ -18,9 +18,20 @@ def limit_handler(cursor):
         time.sleep(1000)
 
 
+search_string = 'blackpink'
+numbersOfTweets = 2
+
+for tweet in tweepy.Cursor(api.search, search_string).items(numbersOfTweets):
+    try:
+        tweet.favorite()
+        print('I liked that tweet')
+    except tweepy.TweepError as e:
+        print(e.reason)
+    except StopIteration:
+        break
+
+
 # Generous Bot
-for follower in limit_handler(tweepy.Cursor(api.followers).items()):
-    # if follower.name == '':
-    follower.follow()
-    break
-    # print(follower.name)
+# for follower in limit_handler(tweepy.Cursor(api.followers).items()):
+#     follower.follow()
+#     break
